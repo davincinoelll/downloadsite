@@ -11,6 +11,7 @@
 :root{
   --bg:#0b0b0d; --card:#1a1a1d; --line:rgba(255,255,255,.1);
   --txt:#f3f3f4; --dim:#a2a2a8; --red:#e50914; --r:6px;
+  --cw:clamp(104px,11.6vw,150px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -40,7 +41,7 @@ nav.solid{background:#0b0b0d;border-bottom:1px solid var(--line);padding:12px 4%
 .avatar{width:32px;height:32px;border-radius:5px;background:linear-gradient(135deg,#e50914,#7b0d12);
   display:grid;place-items:center;font-weight:800;font-size:13px}
 
-#bill{position:relative;height:min(86vh,760px);display:flex;align-items:flex-end;
+#bill{position:relative;height:min(84vh,720px);display:flex;align-items:flex-end;
   padding:0 4% 9vh;overflow:hidden;background:#000}
 #bill .bd{position:absolute;inset:0;background-size:cover;background-position:50% 20%;animation:fade .8s ease}
 #bill .bd::after{content:"";position:absolute;inset:0;
@@ -50,9 +51,9 @@ nav.solid{background:#0b0b0d;border-bottom:1px solid var(--line);padding:12px 4%
   transform:scale(1.35);opacity:0;transition:opacity 1s}
 #bill iframe.on{opacity:1}
 #bill .inner{position:relative;max-width:640px;z-index:2;animation:rise .7s cubic-bezier(.2,.8,.3,1)}
-#bill .logo{max-width:min(440px,62vw);max-height:170px;object-fit:contain;object-position:left bottom;
+#bill .logo{max-width:min(420px,60vw);max-height:150px;object-fit:contain;object-position:left bottom;
   margin-bottom:16px;filter:drop-shadow(0 6px 26px rgba(0,0,0,.85))}
-#bill h1{font-size:clamp(30px,5.4vw,62px);line-height:1.02;letter-spacing:-.035em;font-weight:900;margin-bottom:14px;
+#bill h1{font-size:clamp(30px,5.4vw,58px);line-height:1.02;letter-spacing:-.035em;font-weight:900;margin-bottom:14px;
   text-shadow:0 4px 30px rgba(0,0,0,.7)}
 #bill .m{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13.5px;color:#d8d8dc;margin-bottom:14px}
 #bill .m .match{color:#46d369;font-weight:700}
@@ -70,66 +71,79 @@ nav.solid{background:#0b0b0d;border-bottom:1px solid var(--line);padding:12px 4%
 @keyframes fade{from{opacity:0}}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}}
 
-main{padding:0 0 40px;position:relative;z-index:2;margin-top:-6vh}
-.row{margin-bottom:38px}
-.rowhead{display:flex;align-items:baseline;gap:12px;padding:0 4% 10px}
-.rowhead h2{font-size:clamp(15px,1.5vw,19px);font-weight:700;color:#e9e9ec}
+main{padding:0 0 40px;position:relative;z-index:2;margin-top:-5vh}
+.row{margin-bottom:30px}
+.rowhead{display:flex;align-items:baseline;gap:12px;padding:0 4% 8px}
+.rowhead h2{font-size:clamp(15px,1.5vw,18px);font-weight:700;color:#e9e9ec}
 .rowhead .more{margin-left:auto;font-size:12px;color:var(--dim);transition:.15s}
 .rowhead .more:hover{color:#fff}
-.rail{display:flex;gap:8px;overflow-x:auto;padding:14px 4% 26px;scroll-behavior:smooth;scrollbar-width:none}
+
+/* ── rail: no vertical overflow, hover box stays inside the card ── */
+.rail{display:flex;gap:7px;overflow-x:auto;overflow-y:hidden;padding:12px 4% 10px;
+  scroll-behavior:smooth;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
-.card{flex:0 0 auto;width:clamp(122px,14vw,186px);border-radius:var(--r);position:relative;
-  transition:transform .26s cubic-bezier(.2,.7,.3,1);transform-origin:center;cursor:pointer}
-.card:hover{transform:scale(1.13);z-index:20}
+
+.card{flex:0 0 auto;width:var(--cw);border-radius:var(--r);position:relative;
+  transition:transform .22s cubic-bezier(.2,.7,.3,1);transform-origin:center}
+.card:hover{transform:scale(1.07);z-index:20}
 .card .art{aspect-ratio:2/3;border-radius:var(--r);overflow:hidden;background:var(--card);
-  box-shadow:0 6px 22px rgba(0,0,0,.5);position:relative}
-.card .art img{width:100%;height:100%;object-fit:cover}
-.card .art .ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:8px;
-  font-size:11px;font-weight:700;color:#8b8b92;background:linear-gradient(150deg,#232327,#141417)}
-.card .badge{position:absolute;top:6px;left:6px;font-size:9.5px;font-weight:800;letter-spacing:.05em;
-  padding:3px 6px;border-radius:3px;background:rgba(0,0,0,.78)}
+  box-shadow:0 6px 20px rgba(0,0,0,.5);position:relative;cursor:pointer}
+.card .art img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.card .art .ph{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:6px;
+  font-size:10.5px;font-weight:700;line-height:1.25;color:#8b8b92;
+  background:linear-gradient(150deg,#232327,#141417)}
+.card .badge{position:absolute;top:5px;left:5px;font-size:9px;font-weight:800;letter-spacing:.04em;
+  padding:2px 5px;border-radius:3px;background:rgba(0,0,0,.8);z-index:3}
 .card .badge.hd{color:#46d369;border:1px solid rgba(70,211,105,.4)}
-.card .fav{position:absolute;top:5px;right:5px;width:26px;height:26px;border-radius:50%;font-size:12px;
-  display:grid;place-items:center;background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.35);opacity:0;transition:.16s}
+.card .fav{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;font-size:11px;
+  display:grid;place-items:center;background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.35);
+  opacity:0;transition:.16s;z-index:5}
 .card:hover .fav,.card .fav.on{opacity:1}
 .card .fav.on{background:var(--red);border-color:var(--red)}
+.card .kill{position:absolute;top:4px;right:4px;width:23px;height:23px;border-radius:50%;font-size:10px;
+  display:grid;place-items:center;background:rgba(0,0,0,.78);border:1px solid rgba(255,255,255,.35);
+  opacity:0;transition:.16s;z-index:6}
+.card:hover .kill{opacity:1}
+.card .kill:hover{background:var(--red);border-color:var(--red)}
 .card .prev{position:absolute;inset:0;border:0;border-radius:var(--r);overflow:hidden;opacity:0;
-  pointer-events:none;transition:opacity .3s;background:#000}
+  pointer-events:none;transition:opacity .3s;background:#000;z-index:2}
 .card .prev.on{opacity:1}
 .card .prev iframe{width:300%;height:100%;margin-left:-100%;border:0}
-.card .info{position:absolute;left:0;right:0;top:100%;background:#18181b;border-radius:0 0 var(--r) var(--r);
-  padding:9px 10px 11px;opacity:0;pointer-events:none;transition:.18s;box-shadow:0 14px 26px rgba(0,0,0,.6)}
+
+/* hover box — absolute INSIDE the art, never extends the card */
+.card .info{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:20px 7px 8px;
+  border-radius:0 0 var(--r) var(--r);opacity:0;transition:opacity .18s;
+  background:linear-gradient(0deg,rgba(0,0,0,.94) 40%,rgba(0,0,0,.55) 78%,transparent);
+  pointer-events:none}
 .card:hover .info{opacity:1;pointer-events:auto}
-.card .info .t{font-size:12.5px;font-weight:700;line-height:1.3;margin-bottom:6px;
+.card .info .t{font-size:11px;font-weight:700;line-height:1.25;margin-bottom:4px;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card .info .r{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--dim)}
+.card .info .r{display:flex;gap:6px;align-items:center;font-size:10px;color:#c9c9cf}
 .card .info .match{color:#46d369;font-weight:800}
-.card .info .acts2{display:flex;gap:6px;margin-top:8px}
-.card .info .acts2 button{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:11px;
-  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3)}
+.card .info .acts2{display:flex;gap:5px;margin-top:6px}
+.card .info .acts2 button{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;font-size:10px;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32)}
 .card .info .acts2 button:hover{background:#fff;color:#000}
 
-/* progress + continue-watching */
-.card .bar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.25);
-  border-radius:0 0 var(--r) var(--r);overflow:hidden}
+.card .bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.28);
+  overflow:hidden;z-index:7;border-radius:0 0 var(--r) var(--r)}
 .card .bar i{display:block;height:100%;background:var(--red);transition:width .6s linear}
-.card .resume{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 8px;font-size:11px;font-weight:800;
-  letter-spacing:.04em;text-transform:uppercase;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent);
-  opacity:0;transition:.16s}
-.card:hover .resume{opacity:1}
-.card .kill{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;font-size:11px;
-  display:grid;place-items:center;background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.35);z-index:3}
-.card .kill:hover{background:var(--red);border-color:var(--red)}
 .card.watched .bar i{background:#46d369}
-.cont-label{font-size:11px;color:var(--dim);margin-top:6px}
+.cont-label{font-size:10px;color:#b9b9c0;margin-top:3px}
+.card .cap{display:none;font-size:11px;font-weight:600;line-height:1.25;margin-top:5px;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;color:#c9c9cf}
 
-.sk{flex:0 0 auto;width:clamp(122px,14vw,186px);aspect-ratio:2/3;border-radius:var(--r);
+.sk{flex:0 0 auto;width:var(--cw);aspect-ratio:2/3;border-radius:var(--r);
   background:linear-gradient(100deg,#17171a,#232328,#17171a);background-size:220% 100%;animation:sh 1.3s linear infinite}
 @keyframes sh{0%{background-position:120% 0}100%{background-position:-120% 0}}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(124px,1fr));gap:14px 10px;padding:16px 4% 40px}
+.rowfail{display:flex;align-items:center;gap:10px;padding:6px 4%;color:var(--dim);font-size:13px}
+.rowfail button{padding:5px 12px;border-radius:99px;border:1px solid var(--line);font-size:12px;color:#fff}
+.rowfail button:hover{background:var(--red);border-color:var(--red)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:14px 9px;padding:16px 4% 40px}
 .grid .card{width:auto}
-.grid .card:hover{transform:scale(1.07)}
+.grid .card:hover{transform:scale(1.05)}
 h3.page-h{font-size:clamp(20px,3vw,30px);font-weight:800;padding:110px 4% 0;letter-spacing:-.03em}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:14px 4%;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
@@ -184,7 +198,8 @@ h3.page-h{font-size:clamp(20px,3vw,30px);font-weight:800;padding:110px 4% 0;lett
 .ep .n{font-weight:800;color:#8e8e96;font-size:12px}
 .ep .et{font-size:12.5px;line-height:1.35}
 .ep .et small{display:block;color:var(--dim);font-size:11px;margin-top:2px}
-.ep .bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.14);border-radius:0 0 6px 6px;overflow:hidden}
+.ep .bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.14);
+  border-radius:0 0 6px 6px;overflow:hidden}
 .ep .bar i{display:block;height:100%;background:var(--red)}
 .trow{display:flex;gap:10px;align-items:center;padding:9px 11px;background:#202024;border-radius:6px;margin-bottom:7px}
 .trow .q{font-weight:800;font-size:12px;min-width:48px}
@@ -193,9 +208,9 @@ h3.page-h{font-size:clamp(20px,3vw,30px);font-weight:800;padding:110px 4% 0;lett
 .trow button{background:rgba(255,255,255,.14);padding:6px 11px;border-radius:5px;font-size:11.5px;font-weight:700}
 .trow button:hover{background:var(--red);color:#fff}
 .cast{display:flex;gap:12px;overflow-x:auto;padding:4px 0 16px}
-.cast div{flex:0 0 auto;width:82px;text-align:center}
-.cast .av{width:82px;height:82px;border-radius:50%;background:#232327;display:grid;place-items:center;
-  font-size:22px;color:#555}
+.cast div{flex:0 0 auto;width:76px;text-align:center}
+.cast .av{width:76px;height:76px;border-radius:50%;background:#232327;display:grid;place-items:center;
+  font-size:21px;color:#555}
 .cast p{font-size:11px;margin-top:6px;line-height:1.3;color:#d0d0d5}
 
 #toasts{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:400;display:flex;
@@ -206,13 +221,17 @@ h3.page-h{font-size:clamp(20px,3vw,30px);font-weight:800;padding:110px 4% 0;lett
 @keyframes pop{from{transform:translateY(12px);opacity:0}}
 
 @media(max-width:700px){
+  :root{--cw:clamp(96px,27vw,124px)}
   .links{gap:14px;font-size:13px}
-  #bill{height:74vh;padding-bottom:12vh}
+  #bill{height:72vh;padding-bottom:12vh}
   .hero .body{padding:16px}
   .sheet .pad,.tabs,.servers,.eps,.seasons{padding-left:16px;padding-right:16px}
   .tabs{margin:0 16px}
-  .card:hover{transform:scale(1.06)}
+  .card:hover{transform:none}
   .card .prev{display:none}
+  .card .cap{display:-webkit-box}
+  .card .fav{opacity:1}
+  .card .info{display:none}
 }
 </style>
 </head>
@@ -244,22 +263,24 @@ h3.page-h{font-size:clamp(20px,3vw,30px);font-weight:800;padding:110px 4% 0;lett
 "use strict";
 
 /* ════════════════ SOURCES ════════════════ */
-const CM       = "https://v3-cinemeta.strem.io";
-const METAHUB  = "https://images.metahub.space";
-const APIBAY   = "https://apibay.org";
-const YTS      = "https://movies-api.accel.li/api/v2/list_movies.json";
+const CM      = "https://v3-cinemeta.strem.io";
+const METAHUB = "https://images.metahub.space";
+const APIBAY  = "https://apibay.org";
+const YTS     = "https://movies-api.accel.li/api/v2/list_movies.json";
 
+const DIRECT = { id:"direct", fn:u => u };
 const RELAYS = [
-  u => "https://corsproxy.io/?url=" + encodeURIComponent(u),
-  u => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u),
-  u => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u),
+  { id:"corsproxy", fn:u => "https://corsproxy.io/?url=" + encodeURIComponent(u) },
+  { id:"allorigins", fn:u => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u) },
+  { id:"codetabs", fn:u => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u) },
+  { id:"thingproxy", fn:u => "https://thingproxy.freeboard.io/fetch/" + u },
 ];
 const TRACKERS = ["udp://tracker.opentrackr.org:1337/announce","udp://open.demonii.com:1337/announce",
   "udp://tracker.openbittorrent.com:6969/announce","udp://exodus.desync.com:6969/announce"];
 
 const SERVERS = [
-  { name:"VidSrc",  kind:"imdb", m:id=>`https://vidsrc.mov/embed/movie/${id}`,   t:(id,s,e)=>`https://vidsrc.mov/embed/tv/${id}/${s}/${e}` },
-  { name:"2Embed",  kind:"imdb", m:id=>`https://www.2embed.cc/embed/${id}`,      t:(id,s,e)=>`https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}` },
+  { name:"VidSrc", kind:"imdb", m:id=>`https://vidsrc.mov/embed/movie/${id}`,   t:(id,s,e)=>`https://vidsrc.mov/embed/tv/${id}/${s}/${e}` },
+  { name:"2Embed", kind:"imdb", m:id=>`https://www.2embed.cc/embed/${id}`,      t:(id,s,e)=>`https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}` },
   { name:"VidLink", kind:"tmdb", m:id=>`https://vidlink.pro/movie/${id}`,        t:(id,s,e)=>`https://vidlink.pro/tv/${id}/${s}/${e}` },
   { name:"Videasy", kind:"tmdb", m:id=>`https://player.videasy.net/movie/${id}`, t:(id,s,e)=>`https://player.videasy.net/tv/${id}/${s}/${e}` },
   { name:"EmbedWave", kind:"tmdb", m:id=>`https://embedwave.cc/embed/movie/${id}`, t:(id,s,e)=>`https://embedwave.cc/embed/tv/${id}/${s}/${e}` },
@@ -285,6 +306,12 @@ const toast = (m,k="") => { const t=document.createElement("div"); t.className="
 const clamp = (n,a,b) => Math.min(b, Math.max(a, n));
 const human = ms => { const m = Math.round(ms/60000); return m >= 60 ? `${Math.floor(m/60)}h ${m%60}m` : `${m}m`; };
 
+/* poster URL ladder — metahub serves several sizes, so try them in order */
+const posterLadder = id => [`${METAHUB}/poster/medium/${id}/img`, `${METAHUB}/poster/small/${id}/img`];
+const posterAttrs = (id, title) =>
+  `loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${esc(posterLadder(id)[0])}"
+   data-lad="${esc(id)}" data-step="0" data-title="${esc(title)}" alt="${esc(title)}"`;
+
 /* ════════════════ STORE ════════════════ */
 const LS_LIST = "rj_list", LS_CONT = "rj_cont";
 const read = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k) || "null"); return v ?? d; } catch { return d; } };
@@ -295,20 +322,13 @@ const inList   = id => myList().some(x => x.id === id);
 const contList = () => read(LS_CONT, []);
 
 function saveCont(list) {
-  // prune: finished-and-old, or older than 60 days; keep newest 24
   const now = Date.now();
-  const clean = list
+  write(LS_CONT, list
     .filter(c => now - c.updatedAt < 60 * 864e5)
     .sort((a, b) => b.updatedAt - a.updatedAt)
-    .slice(0, 24);
-  write(LS_CONT, clean);
-  return clean;
+    .slice(0, 24));
 }
 
-/* ── progress math ──
-   The players are cross-origin iframes, so no currentTime access.
-   We estimate from wall-clock elapsed against known runtime, which
-   keeps the bar honest without any player API. */
 function progressOf(c) {
   const expected = Math.max(c.expectedMs || 45 * 60000, 60000);
   const frac = clamp((Date.now() - c.startedAt) / expected, 0, 1);
@@ -324,8 +344,7 @@ function upsertCont(item, season, episode, epIndex) {
   const i = list.findIndex(c => c.id === item.id);
   const prev = i > -1 ? list[i] : null;
   const entry = {
-    id: item.id,
-    type: item.type,
+    id: item.id, type: item.type,
     name: item.name || prev?.name || "Untitled",
     poster: item.poster || prev?.poster || "",
     season: season ?? prev?.season ?? null,
@@ -333,8 +352,7 @@ function upsertCont(item, season, episode, epIndex) {
     epIndex: epIndex ?? prev?.epIndex ?? 0,
     totalEps: (item.videos || []).length || prev?.totalEps || 0,
     expectedMs: minsOf(item.runtime || (item.type === "series" ? 45 : 120)) * 60000,
-    startedAt: Date.now(),
-    updatedAt: Date.now(),
+    startedAt: Date.now(), updatedAt: Date.now(),
   };
   if (i > -1) list[i] = entry; else list.unshift(entry);
   saveCont(list);
@@ -349,24 +367,37 @@ function removeCont(id) {
 }
 
 /* ════════════════ TRANSPORT ════════════════ */
+/* Remembers whether direct requests work so a blocked origin stops
+   costing a failed round-trip on every call. */
+let directOK = null;
 const cache = new Map();
-async function getJSON(url) {
-  if (cache.has(url)) return cache.get(url);
-  try {
-    const r = await fetch(url, { signal: AbortSignal.timeout(9000) });
-    if (r.ok) { const j = await r.json(); cache.set(url, j); return j; }
-  } catch {}
-  for (const f of RELAYS) {
-    try {
-      const r = await fetch(f(url), { signal: AbortSignal.timeout(15000) });
-      if (!r.ok) continue;
-      const j = JSON.parse(await r.text());
-      cache.set(url, j);
-      return j;
-    } catch {}
-  }
-  throw new Error("unreachable");
+
+async function tryRoute(route, url) {
+  const r = await fetch(route.fn(url), { signal: AbortSignal.timeout(route.id === "direct" ? 7000 : 14000) });
+  if (!r.ok) throw new Error(route.id + " " + r.status);
+  return r.json();
 }
+
+async function getJSON(url, tries = 2) {
+  if (cache.has(url)) return cache.get(url);
+  const routes = directOK === false ? RELAYS : [DIRECT, ...RELAYS];
+  let lastErr;
+  for (let attempt = 0; attempt < tries; attempt++) {
+    for (const route of routes) {
+      try {
+        const j = await tryRoute(route, url);
+        directOK = route.id === "direct";
+        cache.set(url, j);
+        return j;
+      } catch (err) {
+        if (route.id === "direct") directOK = false;
+        lastErr = err;
+      }
+    }
+  }
+  throw lastErr || new Error("unreachable");
+}
+
 const catalog = (type, o = {}) => {
   const p = [];
   if (o.genre) p.push("genre=" + encodeURIComponent(o.genre));
@@ -374,7 +405,10 @@ const catalog = (type, o = {}) => {
   if (o.skip) p.push("skip=" + o.skip);
   return getJSON(`${CM}/catalog/${type}/${o.cat || "top"}.json` + (p.length ? "/" + p.join("&") : ""));
 };
-const metaOf = (type, id) => getJSON(`${CM}/meta/${type}/${id}.json`).then(j => j.meta || j);
+const metaOf = (type, id) => getJSON(`${CM}/meta/${type}/${id}.json`, 1).then(j => j.meta || j);
+
+/* catalog items kept around so a failed meta call can still open a sheet */
+const itemCache = new Map();
 
 /* ════════════════ CARD ════════════════ */
 function card(o, opts = {}) {
@@ -382,14 +416,14 @@ function card(o, opts = {}) {
   const title = o.name || "Untitled";
   const p = pctOf(o);
   const on = inList(o.id);
-  const cont = opts.cont || contList().find(c => c.id === o.id);
+  const cont = opts.cont ? contList().find(c => c.id === o.id) : contList().find(c => c.id === o.id);
   const prog = cont ? progressOf(cont) : 0;
   const done = prog >= 95;
+  itemCache.set(o.id, o);
   const art = o.poster
-    ? `<img loading="lazy" decoding="async" src="${esc(o.poster)}" alt="${esc(title)}">`
+    ? `<img ${posterAttrs(o.id, title)}>`
     : `<div class="ph">${esc(title)}</div>`;
-  const where = cont?.type === "series" && cont.episode
-    ? `S${cont.season} E${cont.episode}` : "";
+  const where = cont?.type === "series" && cont.episode ? `S${cont.season} E${cont.episode}` : "";
   return `<article class="card ${done ? "watched" : ""}" data-id="${esc(o.id)}" data-type="${type}">
     <div class="art">${art}
       ${o.imdbRating ? `<span class="badge hd">${esc(o.imdbRating)}</span>` : ""}
@@ -397,21 +431,39 @@ function card(o, opts = {}) {
         ? `<button class="kill" data-kill="${esc(o.id)}" title="Remove">✕</button>`
         : `<button class="fav ${on?"on":""}" data-fav="${esc(o.id)}" title="My List">★</button>`}
       <div class="prev" data-prev="${esc(o.id)}"></div>
-      ${prog ? `<div class="resume">${done ? "Watched" : "Resume"}</div><div class="bar"><i style="width:${prog.toFixed(1)}%"></i></div>` : ""}
-    </div>
-    <div class="info">
-      <div class="t">${esc(title)}</div>
-      <div class="r">${p?`<span class="match">${p}%</span>`:""}<span>${esc(yearOf(o))}</span>
-        <span class="badge" style="position:static">${type==="series"?"Series":"Film"}</span></div>
-      ${where ? `<div class="cont-label">${esc(where)} · ${Math.round(100 - prog)}% left</div>` : ""}
-      <div class="acts2">
-        <button data-play="${esc(o.id)}" data-ptype="${type}" title="Play">▶</button>
-        <button data-open="${esc(o.id)}" data-ot="${type}" title="Details">ⓘ</button>
-        <button data-fav="${esc(o.id)}" title="My List">★</button>
+      ${prog ? `<div class="bar"><i style="width:${prog.toFixed(1)}%"></i></div>` : ""}
+      <div class="info">
+        <div class="t">${esc(title)}</div>
+        <div class="r">${p?`<span class="match">${p}%</span>`:""}<span>${esc(yearOf(o))}</span>
+          <span class="badge" style="position:static">${type==="series"?"Series":"Film"}</span></div>
+        ${where ? `<div class="cont-label">${esc(where)} · ${Math.round(100 - prog)}% left</div>` : ""}
+        <div class="acts2">
+          <button data-play="${esc(o.id)}" data-ptype="${type}" title="Play">▶</button>
+          <button data-open="${esc(o.id)}" data-ot="${type}" title="Details">ⓘ</button>
+          <button data-fav="${esc(o.id)}" title="My List">★</button>
+        </div>
       </div>
     </div>
+    <div class="cap">${esc(title)}</div>
   </article>`;
 }
+
+/* poster fallback chain: medium → small → text tile */
+document.addEventListener("error", e => {
+  const img = e.target;
+  if (!(img instanceof HTMLImageElement) || !img.dataset.lad) return;
+  const step = +img.dataset.step + 1;
+  const ladder = posterLadder(img.dataset.lad);
+  if (step < ladder.length) {
+    img.dataset.step = step;
+    img.src = ladder[step];
+    return;
+  }
+  const ph = document.createElement("div");
+  ph.className = "ph";
+  ph.textContent = img.dataset.title || "";
+  img.replaceWith(ph);
+}, true);
 
 /* hover trailer preview */
 let prevTimer, prevEl, prevId;
@@ -434,7 +486,7 @@ document.addEventListener("mouseover", e => {
       box.classList.add("on");
       prevEl = box;
     } catch {}
-  }, 950);
+  }, 900);
 });
 document.addEventListener("mouseout", e => {
   const c = e.target.closest?.(".card");
@@ -452,12 +504,13 @@ async function billboard() {
     const pool = (j.metas || []).filter(x => x.background).slice(0, 8);
     if (!pool.length) return;
     const o = pool[Math.floor(Math.random() * pool.length)];
+    itemCache.set(o.id, o);
     const p = pctOf(o);
     const cont = contList().find(c => c.id === o.id);
     $("#bill").innerHTML = `
       <div class="bd" style="background-image:url('${esc(o.background)}')"></div>
       <div class="inner">
-        ${o.logo ? `<img class="logo" src="${esc(o.logo)}" alt="${esc(o.name)}">` : `<h1>${esc(o.name)}</h1>`}
+        ${o.logo ? `<img class="logo" src="${esc(o.logo)}" alt="${esc(o.name)}" referrerpolicy="no-referrer">` : `<h1>${esc(o.name)}</h1>`}
         <div class="m">
           ${p?`<span class="match">${p}% match</span>`:""}
           <span>${esc(yearOf(o))}</span><span class="tagline">Film</span><span>HD</span>
@@ -496,24 +549,16 @@ function renderContinue() {
   const list = contList().filter(c => progressOf(c) < 97);
   const host = $("#contRow");
   if (!host) return;
-  if (!list.length) {
-    host.classList.add("hide");
-    return;
-  }
+  if (!list.length) { host.classList.add("hide"); return; }
   host.classList.remove("hide");
-  host.innerHTML = `
-    <div class="rowhead"><h2>Continue Watching</h2>
+  host.innerHTML = `<div class="rowhead"><h2>Continue Watching</h2>
       <button class="more" id="clearCont">Clear all</button></div>
     <div class="rail">${list.map(c => card(
       { id:c.id, type:c.type, name:c.name, poster:c.poster }, { cont:true })).join("")}</div>`;
-  $("#clearCont").onclick = () => {
-    saveCont([]);
-    renderContinue();
-    toast("Continue Watching cleared");
-  };
+  $("#clearCont").onclick = () => { saveCont([]); renderContinue(); toast("Continue Watching cleared"); };
 }
 
-/* keep bars moving while something is playing */
+let currentId = null;
 setInterval(() => {
   const open = contList().find(c => c.id === currentId);
   if (!open) return;
@@ -527,32 +572,39 @@ setInterval(() => {
 const rowShell = (t, id) => `<section class="row"><div class="rowhead"><h2>${esc(t)}</h2></div>
   <div class="rail" id="${id}">${Array.from({length:8},()=>'<div class="sk"></div>').join("")}</div></section>`;
 
-async function fillRow(id, type, opts) {
+/* each row declares fallbacks; an empty or failed result walks to the next */
+async function fillRow(id, type, steps) {
   const el = document.getElementById(id);
   if (!el) return;
-  try {
-    const j = await catalog(type, opts);
-    const items = (j.metas || []).filter(x => x.poster).slice(0, 24);
-    el.innerHTML = items.map(x => card(x)).join("")
-      || `<p style="color:var(--dim);font-size:13px">Nothing here.</p>`;
-  } catch {
-    el.innerHTML = `<p style="color:var(--dim);font-size:13px">Could not load.</p>`;
+  for (const step of steps) {
+    try {
+      const j = await catalog(type, step);
+      const items = (j.metas || []).filter(x => x.poster);
+      if (!items.length) continue;
+      el.innerHTML = items.slice(0, 24).map(x => card(x)).join("");
+      return;
+    } catch {}
   }
+  el.innerHTML = `<div class="rowfail"><span>Couldn't load this row.</span>
+    <button data-retry="${id}" data-type="${type}">Retry</button></div>`;
+  el.dataset.steps = JSON.stringify(steps);
 }
 
+const Y = new Date().getFullYear();
+
 const HOME = [
-  ["Trending Now",        "movie",  {}],
-  ["Popular Series",      "series", {}],
-  ["New Releases",        "movie",  { cat:"year", genre:String(new Date().getFullYear()) }],
-  ["New Series",          "series", { cat:"year", genre:String(new Date().getFullYear()) }],
-  ["Action & Adventure",  "movie",  { genre:"Action" }],
-  ["Top Rated",           "movie",  { cat:"imdbRating" }],
-  ["Binge-worthy Series", "series", { cat:"imdbRating" }],
-  ["Comedy",              "movie",  { genre:"Comedy" }],
-  ["Horror",              "movie",  { genre:"Horror" }],
-  ["Sci-Fi",              "movie",  { genre:"Sci-Fi" }],
-  ["Animation",           "movie",  { genre:"Animation" }],
-  ["Drama",               "movie",  { genre:"Drama" }],
+  ["Trending Now",        "movie",  [{}]],
+  ["Popular Series",      "series", [{}]],
+  ["New Releases",        "movie",  [{ cat:"year", genre:String(Y) }, { cat:"year", genre:String(Y-1) }]],
+  ["New Series",          "series", [{ cat:"year", genre:String(Y) }, { cat:"year", genre:String(Y-1) }]],
+  ["Action & Adventure",  "movie",  [{ genre:"Action" }, { genre:"Adventure" }]],
+  ["Top Rated",           "movie",  [{ cat:"imdbRating" }, {}]],
+  ["Binge-worthy Series", "series", [{ cat:"imdbRating" }, {}]],
+  ["Comedy",              "movie",  [{ genre:"Comedy" }]],
+  ["Horror",              "movie",  [{ genre:"Horror" }]],
+  ["Sci-Fi",              "movie",  [{ genre:"Sci-Fi" }]],
+  ["Animation",           "movie",  [{ genre:"Animation" }]],
+  ["Drama",               "movie",  [{ genre:"Drama" }]],
 ];
 
 async function renderHome() {
@@ -560,7 +612,11 @@ async function renderHome() {
   $("#main").innerHTML = `<section class="row hide" id="contRow"></section>`
     + HOME.map(([t], i) => rowShell(t, "r" + i)).join("");
   renderContinue();
-  HOME.forEach(([,, o], i) => fillRow("r" + i, HOME[i][1], o));
+  /* first three rows start immediately, the rest idle so the page paints fast */
+  HOME.forEach(([,, steps], i) => {
+    if (i < 3) fillRow("r" + i, HOME[i][1], steps);
+    else setTimeout(() => fillRow("r" + i, HOME[i][1], steps), 60 * i);
+  });
   billboard();
 }
 
@@ -575,10 +631,13 @@ async function renderBrowse(type) {
     $("#bgrid").innerHTML = Array.from({length:18},()=>'<div class="sk"></div>').join("");
     try {
       const j = await catalog(type, g ? { genre:g } : {});
-      $("#bgrid").innerHTML = (j.metas || []).filter(x=>x.poster).map(x => card(x)).join("")
+      const items = (j.metas || []).filter(x => x.poster);
+      $("#bgrid").innerHTML = items.map(x => card(x)).join("")
         || `<div class="empty" style="grid-column:1/-1"><b>Nothing found</b></div>`;
     } catch {
-      $("#bgrid").innerHTML = `<div class="empty" style="grid-column:1/-1"><b>Could not load</b></div>`;
+      $("#bgrid").innerHTML = `<div class="empty" style="grid-column:1/-1">
+        <b>Couldn't load</b><button class="btn sm" id="bgRetry">Retry</button></div>`;
+      $("#bgRetry").onclick = () => load(g);
     }
   };
   $("#gchips").onclick = e => {
@@ -626,10 +685,13 @@ function renderSearch() {
       if (q.length < 2) { $("#sgrid").innerHTML = ""; return; }
       $("#sgrid").innerHTML = `<div class="sk"></div><div class="sk"></div><div class="sk"></div>`;
       try {
-        const [mv, sr] = await Promise.all([catalog("movie", { search:q }), catalog("series", { search:q })]);
+        const [mv, sr] = await Promise.allSettled([catalog("movie", { search:q }), catalog("series", { search:q })]);
+        const raw = [
+          ...(mv.status === "fulfilled" ? mv.value.metas || [] : []),
+          ...(sr.status === "fulfilled" ? sr.value.metas || [] : []),
+        ];
         const seen = new Set();
-        const items = [...(mv.metas||[]), ...(sr.metas||[])]
-          .filter(x => x.poster && !seen.has(x.id) && seen.add(x.id));
+        const items = raw.filter(x => x.poster && !seen.has(x.id) && seen.add(x.id));
         $("#sgrid").innerHTML = items.map(x => card(x)).join("")
           || `<div class="empty" style="grid-column:1/-1"><b>No matches</b>Try a different spelling.</div>`;
       } catch {}
@@ -638,7 +700,7 @@ function renderSearch() {
 }
 
 /* ════════════════ DETAIL ════════════════ */
-let modalId, modalType, season = 1, server = 0, curMeta = null, currentId = null;
+let modalId, modalType, season = 1, server = 0, curMeta = null;
 
 async function openDetail(id, type) {
   modalId = id;
@@ -648,8 +710,14 @@ async function openDetail(id, type) {
   $("#modal").setAttribute("aria-hidden", "false");
   $("#modal").innerHTML = `<div class="sheet"><div class="hero" style="display:grid;place-items:center">
     <span style="color:#666">loading…</span></div></div>`;
+
+  /* fall back to whatever the catalog already told us */
+  const seed = itemCache.get(id) || {};
+  let m;
+  try { m = await metaOf(type, id); }
+  catch { m = { ...seed, id, type }; }
+
   try {
-    const m = await metaOf(type, id);
     curMeta = m;
     const title = m.name || "Untitled";
     const on = inList(m.id);
@@ -661,14 +729,15 @@ async function openDetail(id, type) {
     const prog = cont ? progressOf(cont) : 0;
     const resumeSeason = cont?.season ?? seasons[0] ?? 1;
     const resumeEp = cont?.episode ?? 1;
+    const bg = m.background || seed.background || "";
 
     $("#modal").innerHTML = `<div class="sheet">
       <div class="hero">
         <button class="x" id="mx">✕</button>
-        ${m.background ? `<img src="${esc(m.background)}" alt="">` : ""}
+        ${bg ? `<img src="${esc(bg)}" alt="" referrerpolicy="no-referrer">` : ""}
         <div class="fade"></div>
         <div class="body">
-          ${m.logo ? `<img class="lg" src="${esc(m.logo)}" alt="${esc(title)}">` : `<h2>${esc(title)}</h2>`}
+          ${m.logo ? `<img class="lg" src="${esc(m.logo)}" alt="${esc(title)}" referrerpolicy="no-referrer">` : `<h2>${esc(title)}</h2>`}
           <div class="mrow">
             ${p?`<span class="match">${p}% match</span>`:""}
             <span>${esc(yearOf(m))}</span>
@@ -698,7 +767,7 @@ async function openDetail(id, type) {
       </div>
 
       <div id="tab-ov" class="pad">
-        <p class="ov">${esc(m.description || "No synopsis yet.")}</p>
+        <p class="ov">${esc(m.description || "No synopsis available.")}</p>
         ${m.awards?`<p class="kv">${esc(m.awards)}</p>`:""}
         ${m.genres?.length?`<p class="kv">Genres <b>${m.genres.map(esc).join(", ")}</b></p>`:""}
         ${m.director?.length?`<p class="kv">Director <b>${m.director.map(esc).join(", ")}</b></p>`:""}
@@ -718,8 +787,7 @@ async function openDetail(id, type) {
       releaseInfo:yearOf(m), imdbRating:m.imdbRating }, $("#listBtn"));
     $("#playBtn").onclick = () => play(type === "series" ? resumeSeason : null, type === "series" ? resumeEp : null);
     $("#restartBtn")?.addEventListener("click", () => {
-      const l = contList().filter(c => c.id !== m.id);
-      saveCont(l);
+      saveCont(contList().filter(c => c.id !== m.id));
       renderContinue();
       play(type === "series" ? seasons[0] ?? 1 : null, 1);
       $("#resumeLabel")?.remove();
@@ -757,7 +825,8 @@ function drawSeason(n) {
     const isNow = cont && cont.season === n && cont.episode === ep.episode;
     const p = isNow ? progressOf(cont) : 0;
     return `<button class="ep ${isNow ? "now" : ""}" data-e="${ep.episode}">
-      ${ep.thumbnail?`<img class="th" loading="lazy" src="${esc(ep.thumbnail)}" alt="">`:""}
+      ${ep.thumbnail?`<img class="th" loading="lazy" src="${esc(ep.thumbnail)}" alt=""
+        referrerpolicy="no-referrer" onerror="this.style.display='none'">`:""}
       <span><span class="n">E${ep.episode}</span> <span class="et">${esc(ep.name||"")}
         <small>${esc((ep.firstAired||"").slice(0,10))}</small></span></span>
       ${p ? `<span class="bar"><i style="width:${p.toFixed(1)}%"></i></span>` : ""}</button>`;
@@ -787,7 +856,6 @@ function play(s, e) {
   };
   $("#playerBox").scrollIntoView({ behavior:"smooth", block:"center" });
 
-  /* ── record progress ── */
   if (curMeta) {
     const vids = (curMeta.videos || []).slice().sort((a,b) => (a.season - b.season) || (a.episode - b.episode));
     const idx = modalType === "series"
@@ -795,7 +863,7 @@ function play(s, e) {
       : 0;
     upsertCont({ ...curMeta, type:modalType }, s ?? null, e ?? null, idx);
     currentId = curMeta.id;
-    $$(`.ep`).forEach(el => el.classList.toggle("now", +el.dataset.e === e));
+    $$(".ep").forEach(el => el.classList.toggle("now", +el.dataset.e === e));
   }
 }
 
@@ -803,18 +871,18 @@ async function loadTorrents(title, imdb) {
   $("#dl").innerHTML = `<p class="kv">scraping…</p>`;
   const cat = modalType === "series" ? "205" : "207";
   const list = [];
-  try {
-    const r = await getJSON(`${APIBAY}/q.php?q=${encodeURIComponent(title)}&cat=${cat}`);
-    if (Array.isArray(r)) for (const x of r) {
+  const [bay, yts] = await Promise.allSettled([
+    getJSON(`${APIBAY}/q.php?q=${encodeURIComponent(title)}&cat=${cat}`, 1),
+    getJSON(`${YTS}?limit=30&sort_by=seeds&order_by=desc&query_term=${encodeURIComponent(imdb)}`, 1),
+  ]);
+  if (bay.status === "fulfilled" && Array.isArray(bay.value))
+    for (const x of bay.value) {
       if (!x.info_hash || x.id === "0") continue;
       list.push({ name:x.name, hash:x.info_hash, size:x.size, seeds:+x.seeders, q:qOf(x.name) });
     }
-  } catch {}
-  try {
-    const y = await getJSON(`${YTS}?limit=30&sort_by=seeds&order_by=desc&query_term=${encodeURIComponent(imdb)}`);
-    for (const m of y?.data?.movies || []) for (const tt of m.torrents || [])
+  if (yts.status === "fulfilled")
+    for (const m of yts.value?.data?.movies || []) for (const tt of m.torrents || [])
       list.push({ name:`${m.title_long} [${tt.quality}]`, hash:tt.hash, size:tt.size_bytes, seeds:+tt.seeds, q:tt.quality });
-  } catch {}
   const seen = new Set();
   const rows = list.filter(x => x.hash && !seen.has(x.hash) && seen.add(x.hash))
     .sort((a,b) => b.seeds - a.seeds).slice(0, 40);
@@ -855,17 +923,24 @@ function closeDetail() {
 /* ════════════════ EVENTS ════════════════ */
 document.addEventListener("click", e => {
   const kill = e.target.closest("[data-kill]");
-  if (kill) {
-    e.stopPropagation();
-    removeCont(kill.dataset.kill);
+  if (kill) { e.stopPropagation(); removeCont(kill.dataset.kill); return; }
+
+  const retry = e.target.closest("[data-retry]");
+  if (retry) {
+    const id = retry.dataset.retry;
+    const el = document.getElementById(id);
+    const steps = JSON.parse(el.dataset.steps || '[{}]');
+    el.innerHTML = Array.from({length:8},()=>'<div class="sk"></div>').join("");
+    fillRow(id, retry.dataset.type, steps);
     return;
   }
+
   const fav = e.target.closest("[data-fav]");
   if (fav && !fav.closest("#modal")) {
     e.stopPropagation();
     const el = fav.closest(".card");
     toggleList({ id:fav.dataset.fav, type:el.dataset.type,
-      name:el.querySelector(".t")?.textContent || "",
+      name:el.querySelector(".t")?.textContent || el.querySelector(".cap")?.textContent || "",
       poster:el.querySelector("img")?.getAttribute("src") || "" }, null);
     return;
   }
